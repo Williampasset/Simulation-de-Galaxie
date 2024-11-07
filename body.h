@@ -1,24 +1,19 @@
-#pragma once
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdbool.h>
-#include <time.h>
-#include <math.h>
+#include "config.h"
 
-#define DIMENSION 3
 
 /// <summary>
-/// Structure repr�sentant les objets de notre galaxie
+/// Structure représentant les corps (étoiles, planètes...) de notre galaxie
 /// </summary>
-typedef struct Objet {
+typedef struct Bodies{
 	float* position;
-	float* vitesse; 
+	float* vitesse;
 	float* acceleration;
 	float* masse;
-}Objet;
+}Body;
 
-typedef struct Galaxie {
-	Objet* Items;
-	int* size;
 
-};
+void initBody(Body* body, float* position, float* vitesse, float* acceleration, float* masse);
+void updateBody(Body* body, float* force, float* acceleration);
+void freeBody(Body* body);
+
+//Implémentation dans le fichier 'body.c'
