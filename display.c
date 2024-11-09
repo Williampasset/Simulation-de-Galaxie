@@ -64,3 +64,11 @@ void displayGrid(Body* bodies, int nbBodies, int gridWidth, int gridHeight, floa
 
     free(grid);
 }
+
+void sleep(float time){
+    clock_t start_time = clock();
+
+    clock_t wait_time = (clock_t)(time * CLOCKS_PER_SEC);
+
+    while (clock() - start_time < wait_time);
+}

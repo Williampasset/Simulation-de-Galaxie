@@ -37,6 +37,10 @@ int main(int argc, int argv[]) {
 			updateBody(&bodies[j], bodies[j].acceleration, bodies[j].acceleration);
 		}
 		displayGrid(bodies, NUM_BODIES, GRID_WIDTH, GRID_HEIGHT, SPACE_LIMIT);
+
+		sleep(STEP_TIME);
+		printf("\033[H");
+		printf("\033[2J");
 	}
 
 	for (int i = 0; i < NUM_BODIES; i++) {
