@@ -1,6 +1,6 @@
 //body.c
 
-#include "body.h"
+#include "include/body.h"
 
 /// <summary>
 /// La fonction 'initBody' initialise un corps dans une galaxie avec ses conditions initiales
@@ -18,9 +18,9 @@ void initBody(Body* body, float* position, float* vitesse, float* acceleration, 
 }
 
 /// <summary>
-/// La fonction 'updateBody' met à jour l'acceleration, la vitesse et la position du corps en fonction de la force exercé sur lui
+/// La fonction 'updateBody' met ï¿½ jour l'acceleration, la vitesse et la position du corps en fonction de la force exercï¿½ sur lui
 /// </summary>
-/// <param name="body">Corps mis à jour</param>
+/// <param name="body">Corps mis ï¿½ jour</param>
 /// <param name="force"></param>
 /// <param name="acceleration"></param>
 void updateBody(Body* body, float* force, float* acceleration) {
@@ -32,9 +32,9 @@ void updateBody(Body* body, float* force, float* acceleration) {
 }
 
 /// <summary>
-/// La fonction 'freeBody' permet de libérer la mémoire allouer à un corps
+/// La fonction 'freeBody' permet de libï¿½rer la mï¿½moire allouer ï¿½ un corps
 /// </summary>
-/// <param name="body">Corps dont on veut libérer la mémoire</param>
+/// <param name="body">Corps dont on veut libï¿½rer la mï¿½moire</param>
 void freeBody(Body* body) {
     free(body->position);
     free(body->vitesse);

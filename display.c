@@ -1,6 +1,6 @@
 //display.c
 
-#include "display.h"
+#include "include/display.h"
 
 /// <summary>
 /// 
@@ -23,7 +23,7 @@ void displayGrid(Body* bodies, int nbBodies, int gridWidth, int gridHeight, floa
         }
     }
 
-    /// Placement des corps dans la grille (représentant notre galaxie)
+    /// Placement des corps dans la grille (reprï¿½sentant notre galaxie)
     for (int i = 0; i < nbBodies; i++) {
         int x = (int)((bodies[i].position[0] + spaceLimit) / (2 * spaceLimit) * gridWidth);
         int y = (int)((bodies[i].position[1] + spaceLimit) / (2 * spaceLimit) * gridHeight);

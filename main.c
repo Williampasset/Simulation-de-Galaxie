@@ -1,9 +1,9 @@
-#include "config.h"
-#include "physics.h"
-#include "display.h"
+#include "include/config.h"
+#include "include/physics.h"
+#include "include/display.h"
 
 
-int main(int argc, int argv[]) {
+int main(int argc, char** argv) {
 
 
 	/// Initialisation des corps de la galaxie
@@ -16,7 +16,7 @@ int main(int argc, int argv[]) {
 		float* masse = (float*)malloc(sizeof(float));
 
 		if (position == NULL || vitesse == NULL || acceleration == NULL || masse == NULL || bodies == NULL) {
-			printf("Erreur: echec de l'allocation mémoire\n");
+			printf("Erreur: echec de l'allocation mï¿½moire\n");
 			return EXIT_FAILURE;
 		}
 
@@ -30,7 +30,8 @@ int main(int argc, int argv[]) {
 		initBody(&bodies[i], position, vitesse, acceleration, masse);
 	}
 
-	/// Calcul des forces puis affichage de la galaxie avec les corps à jour
+
+	/// Calcul des forces puis affichage de la galaxie avec les corps ï¿½ jour
 	for (int i = 0; i < STEPS; i++) {
 		applyForces(bodies, NUM_BODIES);
 		for (int j = 0; j < NUM_BODIES; j++) {
@@ -47,7 +48,26 @@ int main(int argc, int argv[]) {
 		freeBody(&bodies[i]);
 	}
 	free(bodies);
-
-
 	return EXIT_SUCCESS;
 }
+
+// #include "include/raylib.h"
+
+// #define GRID_WIDTH 800
+// #define GRID_HEIGHT 600
+
+// int main() {
+//     InitWindow(GRID_WIDTH, GRID_HEIGHT, "Galaxie");
+
+//     SetTargetFPS(60);
+
+//     while (!WindowShouldClose()) {
+//         BeginDrawing();
+//         ClearBackground(RAYWHITE);
+//         DrawText("FenÃªtre Raylib fonctionne!", 190, 200, 20, LIGHTGRAY);
+//         EndDrawing();
+//     }
+
+//     CloseWindow();
+//     return 0;
+// }

@@ -1,6 +1,7 @@
 {
   "version": "0.2.0",
   "configurations": [
+    
     {
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
@@ -9,7 +10,7 @@
       "stopAtEntry": false,
       "externalConsole": true,
       "cwd": "c:/Users/willi/source/repos/Simulation-de-Galaxie",
-      "program": "c:/Users/willi/source/repos/Simulation-de-Galaxie/build/Debug/outDebug",
+      "program": "c:/Users/willi/source/repos/Simulation-de-Galaxie/x64/Debug/DM - Simulation de Galaxie.exe",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

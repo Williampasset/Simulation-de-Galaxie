@@ -59,6 +59,8 @@
   "files.associations": {
     ".fantomasignore": "ignore",
     "display.h": "c",
-    "config.h": "c"
-  }
+    "config.h": "c",
+    "raylib.h": "c"
+  },
+  "C_Cpp.default.compilerPath": "gcc"
 }

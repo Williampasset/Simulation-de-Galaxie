@@ -1,6 +1,6 @@
 //physics.c
 
-#include "physics.h"
+#include "include/physics.h"
 
 /// <summary>
 /// La fonction 'computeGravitationalForce' calcule la force qui s'applique entre 2 corps
@@ -27,10 +27,10 @@ void computeGravitationalForce(Body *a, Body *b){
 }
 
 /// <summary>
-/// La fonction 'applyForces' fait appel à la fonction 'computeGravitationalForce' pour calculer l'ensemble des forces qui s'appliquent
+/// La fonction 'applyForces' fait appel ï¿½ la fonction 'computeGravitationalForce' pour calculer l'ensemble des forces qui s'appliquent
 /// sur l'ensemble des corps de la galaxie
 /// </summary>
-/// <param name="bodies">Tableau des corps dont on veut calculer les différentes forces</param>
+/// <param name="bodies">Tableau des corps dont on veut calculer les diffï¿½rentes forces</param>
 /// <param name="n">Nombres de corps existant</param>
 void applyForces(Body* bodies, int n){
     for (int i = 0; i < n; i++) {
