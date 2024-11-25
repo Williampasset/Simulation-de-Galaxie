@@ -1,0 +1,5 @@
+gcc main.c physics.c body.c display.c -o galaxie.exe -lraylib -lm -lopengl32 -lgdi32 -lwinmm
+
+need: - gcc to compile
+      - raylib for graphics
+      

@@ -1,6 +1,6 @@
 //physics.c
 
-#include "include/physics.h"
+#include "physics.h"
 
 /// <summary>
 /// La fonction 'computeGravitationalForce' calcule la force qui s'applique entre 2 corps

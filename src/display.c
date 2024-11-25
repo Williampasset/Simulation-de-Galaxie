@@ -1,6 +1,6 @@
 //display.c
 
-#include "include/display.h"
+#include "display.h"
 
 /// <summary>
 /// 

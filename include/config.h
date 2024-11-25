@@ -13,8 +13,8 @@
 #define NUM_BODIES 100
 #define TIMESTEP 0.01
 #define STEPS 100
-#define GRID_WIDTH 100
-#define GRID_HEIGHT 24
+#define GRID_WIDTH 800
+#define GRID_HEIGHT 600
 #define SPACE_LIMIT 50.0
 #define DIMENSION 2
 #define STEP_TIME 1

@@ -1,6 +1,6 @@
 //body.c
 
-#include "include/body.h"
+#include "body.h"
 
 /// <summary>
 /// La fonction 'initBody' initialise un corps dans une galaxie avec ses conditions initiales
