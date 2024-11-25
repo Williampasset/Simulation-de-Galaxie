@@ -71,6 +71,7 @@ int main() {
         BeginDrawing();
         ClearBackground(DARKBLUE);
         DrawTexture(texture, GRID_WIDTH / 2 - texture.width / 2, GRID_HEIGHT / 3 - texture.height / 2, WHITE);
+        DrawText("Play ", 190, 200, 20, YELLOW);
         EndDrawing();
     }
     UnloadTexture(texture);
