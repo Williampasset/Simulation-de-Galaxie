@@ -10,7 +10,7 @@
 #define CONFIG_H
 
 #define G 6.64730e-11
-#define NUM_BODIES 100
+#define NUM_BODIES 1000
 #define TIMESTEP 0.01
 #define STEPS 100
 #define GRID_WIDTH 800
