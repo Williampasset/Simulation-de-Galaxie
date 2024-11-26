@@ -6,6 +6,7 @@ int main() {
 
     /// Initialisation des corps de la galaxie
 	Body* bodies = (Body*)malloc(NUM_BODIES * sizeof(Body));
+    bool startPlay = false;
 
 	for (int i = 0; i < NUM_BODIES; i++) {
 		float* position = (float*)malloc(DIMENSION * sizeof(float));
@@ -37,32 +38,46 @@ int main() {
 
     SetWindowIcon(logo);
 
-    // Texture2D texture = LoadTextureFromImage(logo);
+    Texture2D texture = LoadTextureFromImage(logo);
 
     UnloadImage(logo);
 
-    // ClearBackground(DARKBLUE);
+    ClearBackground(DARKBLUE);
 
     while (!WindowShouldClose()) {
 
-        for (int i = 0; i < NUM_BODIES; i++) {
-            for (int j = 0; j < DIMENSION; j++) {
-                bodies[i].acceleration[j] = 0;
+        if(IsKeyDown(KEY_A)){
+            startPlay = !startPlay;
+            printf("Touch A pressed\n");
+        }
+
+        if(startPlay){
+            for (int i = 0; i < NUM_BODIES; i++) {
+                for (int j = 0; j < DIMENSION; j++) {
+                    bodies[i].acceleration[j] = 0;
+                }
             }
+
+            applyForces(bodies, NUM_BODIES);
+
+            for (int i = 0; i < NUM_BODIES; i++) {
+                updateBody(&bodies[i], bodies[i].acceleration, bodies[i].acceleration);
+            }
+
+            BeginDrawing();
+            displayGrid(bodies, NUM_BODIES, GRID_WIDTH, GRID_HEIGHT, SPACE_LIMIT);
+            EndDrawing();
         }
-
-        applyForces(bodies, NUM_BODIES);
-
-        for (int i = 0; i < NUM_BODIES; i++) {
-            updateBody(&bodies[i], bodies[i].acceleration, bodies[i].acceleration);
+        else{
+            BeginDrawing();
+            ClearBackground(DARKBLUE);
+            DrawTexture(texture, GRID_WIDTH / 2 - texture.width / 2, GRID_HEIGHT / 3 - texture.height / 2, WHITE);
+            EndDrawing();
         }
-
-        BeginDrawing();
-        displayGrid(bodies, NUM_BODIES, GRID_WIDTH, GRID_HEIGHT, SPACE_LIMIT);
-        EndDrawing();
+        
     }
 
-    // UnloadTexture(texture);
+    UnloadTexture(texture);
     CloseWindow();
 
     for (int i = 0; i < NUM_BODIES; i++) {
