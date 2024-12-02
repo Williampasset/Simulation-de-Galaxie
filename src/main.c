@@ -20,7 +20,7 @@ int main() {
     ClearBackground(DARKBLUE);
 
     Camera camera;
-    camera.position = (Vector3){ 0.0f, 100.0f, 200.0f };
+    camera.position = (Vector3){ 0.0f, 50.0f, 100.0f };
     camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };
 
     camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };
@@ -39,15 +39,15 @@ int main() {
             if (IsKeyDown(KEY_LEFT)) camera.position.x -= 5.0f;
             if (IsKeyDown(KEY_RIGHT)) camera.position.x += 5.0f;
 
-            if (IsKeyDown(KEY_Q)) camera.position.y += 5.0f;
-            if (IsKeyDown(KEY_E)) camera.position.y -= 5.0f;
+            if (IsKeyDown(KEY_P)) camera.position.y += 5.0f;
+            if (IsKeyDown(KEY_M)) camera.position.y -= 5.0f;
 
             // Zoom caméra
             float mouseWheel = GetMouseWheelMove();
             if (mouseWheel != 0) {
                 camera.fovy += mouseWheel * 2.0f;
                 if (camera.fovy < 10.0f) camera.fovy = 10.0f;
-                if (camera.fovy > 90.0f) camera.fovy = 90.0f;
+                if (camera.fovy > 120.0f) camera.fovy = 120.0f;
             }
 
             applyForces(galaxy.bodies, &galaxy.n);

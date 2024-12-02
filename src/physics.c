@@ -30,13 +30,12 @@ void computeGravitationalForce(Body *a, Body *b){
 
     force = (G * a->masse * b->masse) / (distance * distance);
 
-
     for (int i = 0; i < DIMENSION; i++) {
         float acceleration_contribution = force * direction[i] / distance;
-        if(a->acceleration[i] > 1000 || b->acceleration[i] > 1000){
-            a->acceleration[i] = 0;
-            b->acceleration[i] = 0;
-        }
+        // if(a->acceleration[i] > 1000 || b->acceleration[i] > 1000){
+        //     a->acceleration[i] = 0;
+        //     b->acceleration[i] = 0;
+        // }
         a->acceleration[i] += acceleration_contribution / a->masse;
         b->acceleration[i] -= acceleration_contribution / b->masse;
     }
@@ -55,19 +54,19 @@ void applyForces(Body* bodies, int* n) {
     for (int i = 0; i < *n; i++) {
         for (int j = i + 1; j < *n; j++) {
 
-            // if (checkCollision(&bodies[i], &bodies[j])) {
+            if (checkCollision(&bodies[i], &bodies[j])) {
 
-            //     Body mergedBody;
-            //     mergeBodies(&bodies[i], &bodies[j], &mergedBody);
+                Body mergedBody;
+                mergeBodies(&bodies[i], &bodies[j], &mergedBody);
 
-            //     bodies[i] = mergedBody;
+                bodies[i] = mergedBody;
 
-            //     bodies[j] = bodies[*n - 1];
-            //     (*n)--;
+                bodies[j] = bodies[*n - 1];
+                (*n)--;
 
-            //     j = i;
-            //     continue;
-            // }
+                j = i;
+                continue;
+            }
 
             // Calcul des forces gravitationnelles
             computeGravitationalForce(&bodies[i], &bodies[j]);
