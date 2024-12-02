@@ -1,96 +1,88 @@
-//body.c
-
 #include "body.h"
 
-/// <summary>
-/// La fonction 'initBody' initialise un corps dans une galaxie avec ses conditions initiales
-/// </summary>
-/// <param name="body">Corps sur lequel on va initialiser les valeurs</param>
-/// <param name="position">Position initiale du corps</param>
-/// <param name="vitesse">Vitesse initiale du corps</param>
-/// <param name="acceleration">Acceleration initiale du corps</param>
-/// <param name="masse">Masse du corps</param>
-void initBody(Body* body, float* position, float* vitesse, float* acceleration, float* masse, float* rayon) {
-    body->position = position;
-    body->vitesse = vitesse;
-    body->acceleration = acceleration;
-    body->masse = masse;
-    body->rayon = rayon;
+
+/// @brief Génère un nombre aléatoire suivant une loi normale
+/// @param mean
+/// @param stddev
+/// @return float
+float gaussianRandom(float mean, float stddev) {
+    float u1 = (float)rand() / RAND_MAX;
+    float u2 = (float)rand() / RAND_MAX;
+    float z0 = sqrt(-2.0f * log(u1)) * cos(2.0f * PI * u2);
+    return z0 * stddev + mean;
 }
 
-/// <summary>
-/// La fonction 'updateBody' met � jour l'acceleration, la vitesse et la position du corps en fonction de la force exerc� sur lui
-/// </summary>
-/// <param name="body">Corps mis � jour</param>
-/// <param name="force"></param>
-/// <param name="acceleration"></param>
+
+/// @brief Initialise un corps avec les paramètres donnés
+/// @param body 
+/// @param position 
+/// @param vitesse 
+/// @param acceleration 
+/// @param masse 
+/// @param rayon 
+void initBody(Body* body, float* position, float* vitesse, float* acceleration, float* masse, float* rayon) {
+    for (int i = 0; i < DIMENSION; i++) {
+        body->position[i] = position[i];
+        body->vitesse[i] = vitesse[i];
+        body->acceleration[i] = acceleration[i];
+    }
+    body->masse = *masse;
+    body->rayon = *rayon;
+}
+
+
+/// @brief Met à jour la position et la vitesse d'un corps
+/// @param body 
 void updateBody(Body* body) {
-    // Mise à jour des vitesses en fonction de l'accélération
     for (int i = 0; i < DIMENSION; i++) {
         body->vitesse[i] += body->acceleration[i] * TIMESTEP;
-    }
-
-    // Mise à jour des positions en fonction des vitesses
-    for (int i = 0; i < DIMENSION; i++) {
         body->position[i] += body->vitesse[i] * TIMESTEP;
     }
 }
 
-/// <summary>
-/// La fonction 'freeBody' permet de lib�rer la m�moire allouer � un corps
-/// </summary>
-/// <param name="body">Corps dont on veut lib�rer la m�moire</param>
-void freeBody(Body* body) {
-    free(body->position);
-    free(body->vitesse);
-    free(body->acceleration);
-    free(body->masse);
-    free(body->rayon);
-}
 
-
-void initGalaxy(Galaxy* galaxy, int n, float* position){
+/// @brief Initialise une galaxie avec un nombre de corps donné
+/// @param galaxy 
+/// @param n 
+/// @param centre 
+void initGalaxy(Galaxy* galaxy, int n, float* centre) {
     galaxy->bodies = (Body*)malloc(n * sizeof(Body));
-
-    if(galaxy->bodies == NULL){
-        printf("Erreur: echec de l'allocation mémoire\n");
+    if (galaxy->bodies == NULL) {
+        printf("Erreur: échec de l'allocation mémoire\n");
         return;
     }
 
     galaxy->n = n;
-    galaxy->position = position;
 
-    for(int i = 0; i<n;i++){
-        float* position = (float*)malloc(DIMENSION * sizeof(float));
-        float* vitesse = (float*)malloc(DIMENSION * sizeof(float));
-        float* acceleration = (float*)malloc(DIMENSION * sizeof(float));
-        float* masse = (float*)malloc(sizeof(float));
-        float* rayon = (float*)malloc(sizeof(float));
+    for (int j = 0; j < DIMENSION; j++) {
+        galaxy->centre[j] = centre[j];
+    }
 
-        if (position == NULL || vitesse == NULL || acceleration == NULL || masse == NULL || rayon == NULL) {
-            printf("Erreur: echec de l'allocation mémoire\n");
-            return;
-        }
+    for (int i = 0; i < n; i++) {
+        float position[DIMENSION];
+        float vitesse[DIMENSION];
+        float acceleration[DIMENSION] = {0.0f};
+        float masse;
+        float rayon;
 
         for (int j = 0; j < DIMENSION; j++) {
-            position[j] = ((float)(rand() % (int)(2 * (n - SPACE_LIMIT) * 500)) / n ) - SPACE_LIMIT + galaxy->position[j];
-            vitesse[j] = (float)(rand() % 100) - 50;
-            acceleration[j] = 0;
+            position[j] = gaussianRandom(centre[j], SPACE_LIMIT / 3.0f);
+            vitesse[j] = gaussianRandom(0.0f, 50.0f);
         }
 
-        *masse = (float)(rand() % MAX_MASS) + 1;
+        masse = (float)(rand() % MAX_MASS) + 1.0f;
+        rayon = sqrt(masse) * 0.1f;
 
-        *rayon = sqrt(*masse) * 0.1;
-        
-        initBody(&galaxy->bodies[i], position, vitesse, acceleration, masse, rayon);
+        initBody(&galaxy->bodies[i], position, vitesse, acceleration, &masse, &rayon);
     }
 }
 
-void freeGalaxy(Galaxy* galaxy){
-    for (int i = 0; i < galaxy->n; i++) {
-        freeBody(&galaxy->bodies[i]);
-    }
 
-    free(galaxy->bodies);
-    free(galaxy);
+/// @brief Libère la mémoire allouée pour les corps de la galaxie
+/// @param galaxy 
+void freeGalaxy(Galaxy* galaxy) {
+    if (galaxy->bodies != NULL) {
+        free(galaxy->bodies);
+    }
+    galaxy->n = 0;
 }

@@ -4,4 +4,4 @@
 #include "raylib.h"
 
 
-void displayGrid(Body* bodies, int nbBodies, int gridWidth, int gridHeight, float spaceLimit, Color color);
+void displayGrid(Body* bodies, int nbBodies, float spaceLimit, Color color);

@@ -28,17 +28,17 @@ void computeGravitationalForce(Body *a, Body *b){
         direction[i] /= distance;
     }
 
-    force = (G * *a->masse * *b->masse) / (distance * distance);
+    force = (G * a->masse * b->masse) / (distance * distance);
 
 
     for (int i = 0; i < DIMENSION; i++) {
         float acceleration_contribution = force * direction[i] / distance;
-        if(*a->acceleration > 1000 || *b->acceleration > 1000){
+        if(a->acceleration[i] > 1000 || b->acceleration[i] > 1000){
             a->acceleration[i] = 0;
             b->acceleration[i] = 0;
         }
-        a->acceleration[i] += acceleration_contribution / *a->masse;
-        b->acceleration[i] -= acceleration_contribution / *b->masse;
+        a->acceleration[i] += acceleration_contribution / a->masse;
+        b->acceleration[i] -= acceleration_contribution / b->masse;
     }
 
 }
@@ -51,32 +51,78 @@ void computeGravitationalForce(Body *a, Body *b){
 /// </summary>
 /// <param name="bodies">Tableau des corps dont on veut calculer les diff�rentes forces</param>
 /// <param name="n">Nombres de corps existant</param>
-void applyForces(Body* bodies, int* n){
+void applyForces(Body* bodies, int* n) {
     for (int i = 0; i < *n; i++) {
         for (int j = i + 1; j < *n; j++) {
-            computeGravitationalForce((bodies + i), (bodies + j));
+
+            // if (checkCollision(&bodies[i], &bodies[j])) {
+
+            //     Body mergedBody;
+            //     mergeBodies(&bodies[i], &bodies[j], &mergedBody);
+
+            //     bodies[i] = mergedBody;
+
+            //     bodies[j] = bodies[*n - 1];
+            //     (*n)--;
+
+            //     j = i;
+            //     continue;
+            // }
+
+            // Calcul des forces gravitationnelles
+            computeGravitationalForce(&bodies[i], &bodies[j]);
         }
     }
 }
 
-void checkCollision(Body* a, Body* b){
-    float distance = 0;
+
+/// <summary>
+/// Vérifie si deux corps sont en collision.
+/// </summary>
+/// <param name="a">Premier corps</param>
+/// <param name="b">Second corps</param>
+/// <returns>1 si collision, 0 sinon</returns>
+int checkCollision(Body* a, Body* b) {
+    float distanceSquared = 0.0f;
+
     for (int i = 0; i < DIMENSION; i++) {
-        distance += (b->position[i] - a->position[i]) * (b->position[i] - a->position[i]);
+        float diff = b->position[i] - a->position[i];
+        distanceSquared += diff * diff;
     }
 
-    distance = sqrt(distance);
+    float radiusSum = a->rayon + b->rayon;
 
-    if(distance < *a->rayon + *b->rayon){
-        float newMasse = *a->masse + *b->masse;
-        for (int i = 0; i < DIMENSION; i++) {
-            a->position[i] = (a->position[i] * *a->masse + b->position[i] * *b->masse) / newMasse;
-            a->vitesse[i] = (a->vitesse[i] * *a->masse + b->vitesse[i] * *b->masse) / newMasse;
-        }
+    return distanceSquared <= (radiusSum * radiusSum);
+}
 
-        *a->masse = newMasse;
-        *a->rayon = sqrt(newMasse) * 0.1;
-        *b->masse = 0;
-        *b->rayon = 0;
+/// <summary>
+/// Fusionne deux corps en un seul.
+/// </summary>
+/// <param name="a">Premier corps</param>
+/// <param name="b">Second corps</param>
+/// <param name="result">Corps résultant de la fusion</param>
+void mergeBodies(Body* a, Body* b, Body* result) {
+    float totalMass = a->masse + b->masse;
+
+    // Position : centre de masse
+    for (int i = 0; i < DIMENSION; i++) {
+        result->position[i] = (a->position[i] * a->masse + b->position[i] * b->masse) / totalMass;
+    }
+
+    // Vitesse : conservation de l'élan
+    for (int i = 0; i < DIMENSION; i++) {
+        result->vitesse[i] = (a->vitesse[i] * a->masse + b->vitesse[i] * b->masse) / totalMass;
+    }
+
+    // Masse et rayon
+    result->masse = totalMass/2;
+    result->rayon = sqrt(result->masse) * 0.1f;
+
+    // Accélération (optionnel, souvent réinitialisée après fusion)
+    for (int i = 0; i < DIMENSION; i++) {
+        result->acceleration[i] = 0.0f;
     }
 }
+
+
+
