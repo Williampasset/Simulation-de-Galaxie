@@ -62,7 +62,8 @@
     "config.h": "c",
     "raylib.h": "c",
     "time.h": "c",
-    "physics.h": "c"
+    "physics.h": "c",
+    "body.h": "c"
   },
   "C_Cpp.default.compilerPath": "gcc"
 }

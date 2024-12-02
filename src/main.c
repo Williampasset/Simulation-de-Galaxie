@@ -3,31 +3,13 @@
 #include "display.h"
 
 int main() {
-
-    /// Initialisation des corps de la galaxie
-	Body* bodies = (Body*)malloc(NUM_BODIES * sizeof(Body));
     bool startPlay = false;
 
-	for (int i = 0; i < NUM_BODIES; i++) {
-		float* position = (float*)malloc(DIMENSION * sizeof(float));
-		float* vitesse = (float*)malloc(DIMENSION * sizeof(float));
-		float* acceleration = (float*)malloc(DIMENSION * sizeof(float));
-		float* masse = (float*)malloc(sizeof(float));
+    Galaxy galaxy;
+    initGalaxy(&galaxy, NUM_BODIES, (float[]){0, 0});
 
-		if (position == NULL || vitesse == NULL || acceleration == NULL || masse == NULL || bodies == NULL) {
-			printf("Erreur: echec de l'allocation m�moire\n");
-			return EXIT_FAILURE;
-		}
-
-		for (int j = 0; j < DIMENSION; j++) {
-			position[j] = (float)(rand() % (int)(2 * SPACE_LIMIT * 100)) / 100 - SPACE_LIMIT;
-			vitesse[j] = (float)(rand() % 100) - 50;
-			acceleration[j] = 0;
-		}
-
-		*masse = (float)(rand() % 1000) + 1;
-		initBody(&bodies[i], position, vitesse, acceleration, masse);
-	}
+    // Galaxy galaxy2;
+    // initGalaxy(&galaxy2, NUM_BODIES, (float[]){-10, -10});
 
     // Initialisation de la fenêtre raylib
     InitWindow(GRID_WIDTH, GRID_HEIGHT, "Galaxie");
@@ -44,29 +26,57 @@ int main() {
 
     ClearBackground(DARKBLUE);
 
+    Camera2D camera = { 0 };
+    float zoom = 1.0f;
+
+    camera.offset = (Vector2){ (float)GRID_WIDTH / 2, (float)GRID_HEIGHT / 2 };
+    camera.rotation = 0.0f;
+    camera.target = (Vector2){ 0.0f, 0.0f };
+    camera.zoom = zoom;
+
     while (!WindowShouldClose()) {
 
-        if(IsKeyDown(KEY_A)){
-            startPlay = !startPlay;
-            printf("Touch A pressed\n");
+        if(IsKeyDown(KEY_ENTER) && !startPlay){
+            startPlay = true;
         }
 
         if(startPlay){
-            for (int i = 0; i < NUM_BODIES; i++) {
-                for (int j = 0; j < DIMENSION; j++) {
-                    bodies[i].acceleration[j] = 0;
-                }
+
+            //Zoom de la caméra
+            float mouseWheel = GetMouseWheelMove();
+            if (mouseWheel != 0.0f) {
+                camera.zoom += mouseWheel * 0.1f;
             }
 
-            applyForces(bodies, NUM_BODIES);
+            //Limitation du zoom
+            if (camera.zoom < 0.1f) camera.zoom = 0.1f;
+            if (camera.zoom > 2.0f) camera.zoom = 2.0f;
 
-            for (int i = 0; i < NUM_BODIES; i++) {
-                updateBody(&bodies[i], bodies[i].acceleration, bodies[i].acceleration);
+            //Déplacement de la caméra
+            if (IsKeyDown(KEY_RIGHT)) camera.offset.x -= 5 / camera.zoom;
+            if (IsKeyDown(KEY_LEFT)) camera.offset.x += 5 / camera.zoom;
+            if (IsKeyDown(KEY_DOWN)) camera.offset.y -= 5 / camera.zoom;
+            if (IsKeyDown(KEY_UP)) camera.offset.y += 5 / camera.zoom;
+
+            applyForces(galaxy.bodies, &galaxy.n);
+            // applyForces(galaxy2.bodies, &galaxy2.n);
+
+            for (int i = 0; i < galaxy.n; i++) {
+                updateBody(&galaxy.bodies[i]);
+                // updateBody(&galaxy2.bodies[i]);
             }
 
             BeginDrawing();
-            displayGrid(bodies, NUM_BODIES, GRID_WIDTH, GRID_HEIGHT, SPACE_LIMIT);
+
+                BeginMode2D(camera);
+            
+                    displayGrid(galaxy.bodies, galaxy.n, GRID_WIDTH, GRID_HEIGHT, SPACE_LIMIT, WHITE);
+                    // displayGrid(galaxy2.bodies, galaxy2.n, GRID_WIDTH, GRID_HEIGHT, SPACE_LIMIT, GREEN);
+            
+                EndMode2D();
+
             EndDrawing();
+
         }
         else{
             BeginDrawing();
@@ -80,11 +90,13 @@ int main() {
     UnloadTexture(texture);
     CloseWindow();
 
-    for (int i = 0; i < NUM_BODIES; i++) {
-	    freeBody(&bodies[i]);
+    for (int i = 0; i < galaxy.n; i++) {
+	    freeBody(&galaxy.bodies[i]);
+        // freeBody(&galaxy2.bodies[i]);
 	}
 
-	free(bodies);
+	freeGalaxy(&galaxy);
+    // freeGalaxy(&galaxy2);
 
     return 0;
 }
