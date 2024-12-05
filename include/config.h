@@ -10,8 +10,8 @@
 #define CONFIG_H
 
 #define G 6.64730e-1 // Constante gravitationnelle (modifier par convenance)
-#define NUM_BODIES 500
-#define TIMESTEP 0.01
+#define NUM_BODIES 1000
+#define TIMESTEP 0.1
 #define GRID_WIDTH 1080
 #define GRID_HEIGHT 720
 #define SPACE_LIMIT 500
