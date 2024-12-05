@@ -1,5 +1,10 @@
 #include "config.h"
 
+
+///TODO: Ajouter les types de corps possible (étoile, planète, astéroïde...)
+///Enum ci-dessous:
+///typedef enum { STAR, PLANET, BLACK_HOLE, ASTEROID } BodyType;
+
 /// <summary>
 /// Structure représentant les corps (étoiles, planètes...) de notre galaxie
 /// </summary>

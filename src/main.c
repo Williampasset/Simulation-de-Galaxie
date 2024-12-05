@@ -3,6 +3,8 @@
 #include "display.h"
 
 int main() {
+    srand( time( NULL ) );
+
     bool startPlay = false;
 
     Galaxy galaxy;

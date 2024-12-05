@@ -64,14 +64,17 @@ void initGalaxy(Galaxy* galaxy, int n, float* centre) {
         float acceleration[DIMENSION] = {0.0f};
         float masse;
         float rayon;
+        
 
         for (int j = 0; j < DIMENSION; j++) {
             position[j] = gaussianRandom(centre[j], SPACE_LIMIT / 3.0f);
-            vitesse[j] = gaussianRandom(0.0f, 50.0f);
+            vitesse[j] = 0; //gaussianRandom(0.0f, 150.0f)
         }
 
-        masse = (float)(rand() % MAX_MASS) + 1.0f;
-        rayon = sqrt(masse) * 0.1f;
+        masse = (float)(rand() % MAX_MASS) + 100000.0f;
+        rayon = sqrt(masse) * 0.01f;
+
+        
 
         initBody(&galaxy->bodies[i], position, vitesse, acceleration, &masse, &rayon);
     }
