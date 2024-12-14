@@ -67,6 +67,7 @@ int main() {
             BeginDrawing();
             ClearBackground(DARKBLUE);
             DrawTexture(texture, GRID_WIDTH / 2 - texture.width / 2, GRID_HEIGHT / 3 - texture.height / 2, WHITE);
+            DrawText("Appuyez sur ENTREE pour commencer", GRID_WIDTH / 2 - MeasureText("Appuyez sur ENTREE pour commencer", 20) / 2, GRID_HEIGHT / 2, 20, WHITE);
             EndDrawing();
         }
     }

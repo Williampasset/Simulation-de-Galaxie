@@ -3,7 +3,7 @@
 
 ///TODO: Ajouter les types de corps possible (étoile, planète, astéroïde...)
 ///Enum ci-dessous:
-///typedef enum { STAR, PLANET, BLACK_HOLE, ASTEROID } BodyType;
+typedef enum { STAR, PLANET, BLACK_HOLE, ASTEROID } BodyType;
 
 /// <summary>
 /// Structure représentant les corps (étoiles, planètes...) de notre galaxie
@@ -14,6 +14,7 @@ typedef struct Body {
     float acceleration[DIMENSION];
     float masse;
     float rayon;
+    BodyType type;
 } Body;
 
 
@@ -22,7 +23,6 @@ typedef struct Galaxy{
 	int n;
 	float centre[DIMENSION];
 }Galaxy;
-
 
 float gaussianRandom(float mean, float stddev);
 

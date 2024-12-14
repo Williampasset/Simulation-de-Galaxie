@@ -2,6 +2,25 @@
 
 #include "display.h"
 
+
+
+Color getBodyColor(BodyType type) {
+    switch (type) {
+        case ASTEROID:
+            return BROWN;
+        case PLANET:
+            return GREEN;
+        case STAR:
+            return YELLOW;
+        case BLACK_HOLE:
+            return BLACK;
+        default:
+            return WHITE;
+    }
+}
+
+
+
 void displayGrid(Body* bodies, int nbBodies, float spaceLimit, Color color) {
     ClearBackground(DARKBLUE);
 
@@ -14,9 +33,9 @@ void displayGrid(Body* bodies, int nbBodies, float spaceLimit, Color color) {
             bodies[i].position[2]  // Coordonnée Z
         };
         
-        // Dessin du corps en tant que sphère
-        float speed = sqrt(pow(bodies[i].vitesse[0], 2) + pow(bodies[i].vitesse[1], 2) + pow(bodies[i].vitesse[2], 2));
-        Color bodyColor = (Color){255, (int)(speed * 25), 0, 255};
+        // float speed = sqrt(pow(bodies[i].vitesse[0], 2) + pow(bodies[i].vitesse[1], 2) + pow(bodies[i].vitesse[2], 2));
+        // Color bodyColor = (Color){255, (int)(speed * 25), 0, 255};
+        Color bodyColor = getBodyColor(bodies[i].type);
 
         DrawSphere(bodyPosition, bodies[i].rayon, bodyColor);
     }

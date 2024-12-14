@@ -2,6 +2,7 @@
 
 
 /// @brief Génère un nombre aléatoire suivant une loi normale
+/// Pour une meilleure répartition des corps
 /// @param mean
 /// @param stddev
 /// @return float
@@ -41,6 +42,26 @@ void updateBody(Body* body) {
 }
 
 
+
+void InitBodyType(Body* body) {
+    // Probabilité : Asteroid (50%), Planet (20%), Star (15%), Black Hole (5%)
+    float probabilities[] = {0.98f, 0.999f, 0.9999f, 1.0f};
+
+    float randomValue = (float)rand() / RAND_MAX;
+
+    if (randomValue < probabilities[0]) {
+        body->type = ASTEROID;
+    } else if (randomValue < probabilities[1]) {
+        body->type = PLANET;
+    } else if (randomValue < probabilities[2]) {
+        body->type = STAR;
+    } else {
+        body->type = BLACK_HOLE;
+    }
+}
+
+
+
 /// @brief Initialise une galaxie avec un nombre de corps donné
 /// @param galaxy 
 /// @param n 
@@ -68,11 +89,34 @@ void initGalaxy(Galaxy* galaxy, int n, float* centre) {
 
         for (int j = 0; j < DIMENSION; j++) {
             position[j] = gaussianRandom(centre[j], SPACE_LIMIT / 3.0f);
-            vitesse[j] = 0; //gaussianRandom(0.0f, 150.0f)
+            vitesse[j] = gaussianRandom(0.0f, 10.0f); //
         }
 
-        masse = (float)(rand() % MAX_MASS) + 100000.0f;
-        rayon = sqrt(masse) * 0.01f;
+        InitBodyType(&galaxy->bodies[i]);
+
+        switch (galaxy->bodies[i].type) {
+            case ASTEROID:
+                masse = gaussianRandom(1e7f, 1e6f);
+                break;
+            case PLANET:
+                masse = gaussianRandom(5e8f, 1e7f);
+                break;
+            case STAR:
+                masse = gaussianRandom(2e9f, 5e8f);
+                break;
+            case BLACK_HOLE:
+                masse = gaussianRandom(1e11f, 1e9f);
+                break;
+            default:
+                masse = 1.0f;
+                break;
+        }
+
+        printf("masse : %f\n", masse);
+        printf("Body type : %d\n", galaxy->bodies[i].type);
+
+        // masse = (float)(rand() % MAX_MASS) + 100000.0f;
+        rayon = sqrt(masse) * 0.0001f;
 
         
 
