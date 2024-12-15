@@ -17,7 +17,7 @@ Les corps (astéroïdes, planètes, étoiles, trous noirs) interagissent entre e
 - ### Simulation physique:
   - Calcul des forces gravitationnelles entre les corps.
   - Types de corps : astéroïdes, planètes, étoiles, trous noirs.
-  - Génération optimiser suivant une loi normale
+  - Génération optimiser suivant une loi normale pour une simulation plus réaliste
 - ### Exploration interactive:
   - Contrôles de la caméra (translation, zoom).
   - Visualisation de la simulation en temps réel.
