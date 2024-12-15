@@ -53,7 +53,7 @@ gcc main.c physics.c body.c display.c -o galaxie.exe -lraylib -lm -lopengl32 -lg
   - Monter/Descendre: **P** et **M**
   - Zoom: Molette de la souris
  
-## Structure du devoir:
+## Structure du devoir: {#structuredudevoir}
 - **main.c**: Point d'entrée du programme, gestion de la boucle principale et des entrées utilisateur.
 - **config.h**: Définition des constantes du projet tel que la constante gravitationnelle, la taille de l'écran, le nombre de corps par défaut...
 - **display.c**: Gestion de l'affichage des différents corps
@@ -63,7 +63,7 @@ gcc main.c physics.c body.c display.c -o galaxie.exe -lraylib -lm -lopengl32 -lg
 - **body.h**: Définition des différentes structures et prototypes pour les corps
 - **physics.h**: Définition des prototypes pour la physique
 
-## Améliorations potentielles:
+## Améliorations potentielles: {#améliorationspotentielles}
 - Ajout des collisions entre les corps (précédemment implémenté mais des problèmes sont survenus suite à l'ajout des types de corps)
 - Optimisation des calculs pour un très grand nombre de corps
 - Ajout des threads pour une simulation plus fluide et des calculs en parallèles (conflit entre raylib et windows.h, possible sous une VM linux)
@@ -71,7 +71,7 @@ gcc main.c physics.c body.c display.c -o galaxie.exe -lraylib -lm -lopengl32 -lg
 - Améliorer l'affichage
 - Ajout d'un fichier makefile, meson ou Cmake pour facilité la compilation
 
-## Améliorations personnelles:
+## Améliorations personnelles: {#améliorationspersonnelles}
 Ce devoir m'a permis d'être plus à l'aise avec le langage C que ce soit dans la gestion de la mémoire, la structuration des différents fichiers et les différentes notions vues en cours. Malgrè une simulation imparfaite, je suis tout de même fier du rendu de ce devoir.
 
 ## Auteur
