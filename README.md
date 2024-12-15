@@ -3,6 +3,7 @@
 ## Table des matières
 - [Description](#description)
 - [Fonctionnalités](#fonctionnalités)
+- [Démarches](#démarches)
 - [Utilisation](#utilisation)
 - [Structure du devoir](#structuredudevoir)
 - [Améliorations potentielles](#améliorationspotentielles)
@@ -25,6 +26,13 @@ Les corps (astéroïdes, planètes, étoiles, trous noirs) interagissent entre e
   - Utilisation de la bibliothèque **Raylib** pour représenter les corps et leurs interactions dans un environnement spatial.
 - ### Paramètres configurables:
   - Possibilités de rentrer le nombre de corps de la galaxie ainsi que la taille de l'espace où ceci sont générés en ligne de commande
+
+## Démarches
+La première étape de ce devoir était de réaliser une simple simulation d'une galaxie en 2D. Il y avait donc une structure de corps et une structure de galaxie. Chaque corps était généré avec une masse aléatoire entre une valeur minimale et maximale sans distinction de type (planètes, trous noirs, étoiles, astéroïdes). Pour rendre la simulation plus visuel, j'ai fais le choix de donner à chaque corps une couleur en fonction de leur vitesse ce qui m'a permis de voir les possibles problèmes de calcul et les intéractions entre chacun. J'avais donc une simulation en 2D avec des corps qui se déplaçaient toujours dans la même direction et avec la même vitesse initiale.
+Le principal problème que j'ai rencontré lors du développement a été la génération de corps réalistes qui pouvaient s'afficher facilement. En effet, les premiers corps que je générais avaient une masse entre 10 tonne et 100 tonne, ce qui donnait des intéractions trop faibles pour pouvoir être observer.
+La seconde étape était de savoir comment améliorer mon programme qui rentrait déjà dans les consignes du devoir. J'ai donc opté pour une simulation 3D qui n'a pas été si complexe à mettre en place car il fallait juste ajouter la gestion d'une 3ème composante.
+J'ai fais le choix de rester sur un simple tableau car je ne pensais pas rentrer dans un nombre de corps trop élevés, j'aurais pu cependant utiliser tout de même une liste chaînée pour ma galaxie, ce qui m'aurait permis de faire une simulation plus fluide.
+Pour ce devoir, je n'ai pas grandement utiliser d'IA, seulement pour de la documentation notamment pour la génération de la galaxie suivant la loi normale. 
 
 ## Compilation
 - **Compiler C** (GCC...)
