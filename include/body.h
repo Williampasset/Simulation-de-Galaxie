@@ -29,7 +29,7 @@ float gaussianRandom(float mean, float stddev);
 void initBody(Body* body, float* position, float* vitesse, float* acceleration, float* masse, float* rayon);
 void updateBody(Body* body);
 
-void initGalaxy(Galaxy* galaxy, int n, float* position);
+void initGalaxy(Galaxy* galaxy, int n, float* position, float spaceLimit);
 void freeGalaxy(Galaxy* galaxy);
 
 //Implémentation dans le fichier 'body.c'

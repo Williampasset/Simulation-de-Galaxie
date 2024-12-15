@@ -71,6 +71,7 @@ void applyForces(Body* bodies, int* n) {
 }
 
 
+
 // /// <summary>
 // /// Vérifie si deux corps sont en collision.
 // /// </summary>
@@ -89,6 +90,8 @@ void applyForces(Body* bodies, int* n) {
 
 //     return distanceSquared <= (radiusSum * radiusSum);
 // }
+
+
 
 // /// <summary>
 // /// Fusionne deux corps en un seul.
@@ -112,6 +115,16 @@ void applyForces(Body* bodies, int* n) {
 
 //     for (int i = 0; i < DIMENSION; i++) {
 //         result->acceleration[i] = 0.0f;
+//     }
+
+//     if (a->type == BLACK_HOLE || b->type == BLACK_HOLE) {
+//         result->type = BLACK_HOLE;
+//     } else if (a->type == STAR || b->type == STAR) {
+//         result->type = STAR;
+//     } else if (a->type == PLANET || b->type == PLANET) {
+//         result->type = PLANET;
+//     } else {
+//         result->type = ASTEROID;
 //     }
 // }
 

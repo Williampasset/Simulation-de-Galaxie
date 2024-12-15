@@ -5,3 +5,4 @@
 
 
 void displayGrid(Body* bodies, int nbBodies, float spaceLimit, Color color);
+Color getBodyColor(BodyType type);

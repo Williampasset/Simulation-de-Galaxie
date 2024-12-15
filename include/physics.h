@@ -7,7 +7,7 @@
 
 void computeGravitationalForce(Body *a, Body *b); 
 void applyForces(Body* bodies, int* n);
-int checkCollision(Body* a, Body* b);
-void mergeBodies(Body* a, Body* b, Body* result);
+// int checkCollision(Body* a, Body* b);
+// void mergeBodies(Body* a, Body* b, Body* result);
 
 #endif // PHYSICS_H

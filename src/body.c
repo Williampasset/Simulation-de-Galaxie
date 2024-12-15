@@ -3,8 +3,8 @@
 
 /// @brief Génère un nombre aléatoire suivant une loi normale
 /// Pour une meilleure répartition des corps
-/// @param mean
-/// @param stddev
+/// @param mean moyenne
+/// @param stddev écart-type
 /// @return float
 float gaussianRandom(float mean, float stddev) {
     float u1 = (float)rand() / RAND_MAX;
@@ -44,7 +44,7 @@ void updateBody(Body* body) {
 
 
 void InitBodyType(Body* body) {
-    // Probabilité : Asteroid (50%), Planet (20%), Star (15%), Black Hole (5%)
+    // Probabilité : Asteroid (98%), Planet (1.9%), Star (0.09%), Black Hole (0.01%)
     float probabilities[] = {0.98f, 0.999f, 0.9999f, 1.0f};
 
     float randomValue = (float)rand() / RAND_MAX;
@@ -66,7 +66,7 @@ void InitBodyType(Body* body) {
 /// @param galaxy 
 /// @param n 
 /// @param centre 
-void initGalaxy(Galaxy* galaxy, int n, float* centre) {
+void initGalaxy(Galaxy* galaxy, int n, float* centre, float spaceLimit) {
     galaxy->bodies = (Body*)malloc(n * sizeof(Body));
     if (galaxy->bodies == NULL) {
         printf("Erreur: échec de l'allocation mémoire\n");
@@ -88,35 +88,35 @@ void initGalaxy(Galaxy* galaxy, int n, float* centre) {
         
 
         for (int j = 0; j < DIMENSION; j++) {
-            position[j] = gaussianRandom(centre[j], SPACE_LIMIT / 3.0f);
-            vitesse[j] = gaussianRandom(0.0f, 10.0f); //
+            position[j] = gaussianRandom(centre[j], spaceLimit / 3.0f);
+            vitesse[j] = gaussianRandom(0.0f, 10.0f);
         }
 
         InitBodyType(&galaxy->bodies[i]);
 
         switch (galaxy->bodies[i].type) {
             case ASTEROID:
-                masse = gaussianRandom(1e7f, 1e6f);
+                masse = gaussianRandom(1e9f, 1e8f);
                 break;
             case PLANET:
-                masse = gaussianRandom(5e8f, 1e7f);
+                masse = gaussianRandom(5e10f, 1e9f);
                 break;
             case STAR:
-                masse = gaussianRandom(2e9f, 5e8f);
+                masse = gaussianRandom(2e11f, 5e10f);
                 break;
             case BLACK_HOLE:
-                masse = gaussianRandom(1e11f, 1e9f);
+                masse = gaussianRandom(1e13f, 1e11f);
+                vitesse[0] = 0.0f;
+                vitesse[1] = 0.0f;
+                vitesse[2] = 0.0f;
                 break;
             default:
                 masse = 1.0f;
                 break;
         }
 
-        printf("masse : %f\n", masse);
-        printf("Body type : %d\n", galaxy->bodies[i].type);
-
         // masse = (float)(rand() % MAX_MASS) + 100000.0f;
-        rayon = sqrt(masse) * 0.0001f;
+        rayon = sqrt(masse) * 0.00001f;
 
         
 

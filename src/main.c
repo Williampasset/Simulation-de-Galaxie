@@ -2,13 +2,35 @@
 #include "physics.h"
 #include "display.h"
 
-int main() {
+int main(int argc, char *argv[]) {
+
     srand( time( NULL ) );
+
+    int numBodies = NUM_BODIES;
+    float spaceLimit = SPACE_LIMIT;
+
+    if (argc > 1) {
+        if (argc >= 2) {
+            numBodies = atoi(argv[1]);
+            if (numBodies <= 0 || numBodies > 1000) {
+                printf("Le nombre de corps de la galaxie doit être compris entre 1 et 1000.\n");
+                return EXIT_FAILURE;
+            }
+        }
+        if (argc >= 3) {
+            spaceLimit = atof(argv[2]);
+            if (spaceLimit <= 0 || spaceLimit > 1000) {
+                printf("La limite de l'espace doit être compris entre 1 et 1000.\n");
+                return EXIT_FAILURE;
+            }
+        }
+    }
 
     bool startPlay = false;
 
     Galaxy galaxy;
-    initGalaxy(&galaxy, NUM_BODIES, (float[]){ 0, 0, 0 });
+    initGalaxy(&galaxy, numBodies, (float[]){ 0, 0, 0 }, spaceLimit);
+
 
     // Initialisation de la fenêtre raylib
     InitWindow(GRID_WIDTH, GRID_HEIGHT, "Galaxie 3D");
@@ -60,7 +82,7 @@ int main() {
 
             BeginDrawing();
                 BeginMode3D(camera);
-                    displayGrid(galaxy.bodies, galaxy.n, SPACE_LIMIT, WHITE);
+                    displayGrid(galaxy.bodies, galaxy.n, spaceLimit, WHITE);
                 EndMode3D();
             EndDrawing();
         } else {
