@@ -63,7 +63,7 @@ gcc main.c physics.c body.c display.c -o galaxie.exe -lraylib -lm -lopengl32 -lg
 - **body.h**: Définition des différentes structures et prototypes pour les corps
 - **physics.h**: Définition des prototypes pour la physique
 
-## Améliorations potentielles: {#améliorationspotentielles}
+## Améliorations potentielles: (#améliorationspotentielles)
 - Ajout des collisions entre les corps (précédemment implémenté mais des problèmes sont survenus suite à l'ajout des types de corps)
 - Optimisation des calculs pour un très grand nombre de corps
 - Ajout des threads pour une simulation plus fluide et des calculs en parallèles (conflit entre raylib et windows.h, possible sous une VM linux)
