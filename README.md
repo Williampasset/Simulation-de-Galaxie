@@ -3,6 +3,10 @@
 ## Table des matières
 - [Description](#description)
 - [Fonctionnalités](#fonctionnalités)
+- [Utilisation](#utilisation)
+- [Structure du devoir](#structuredudevoir)
+- [Améliorations potentielles](#améliorationspotentielles)
+- [Améliorations personnelles](#améliorationspersonnelles)
 
 ## Description
 
@@ -13,6 +17,7 @@ Les corps (astéroïdes, planètes, étoiles, trous noirs) interagissent entre e
 - ### Simulation physique:
   - Calcul des forces gravitationnelles entre les corps.
   - Types de corps : astéroïdes, planètes, étoiles, trous noirs.
+  - Génération optimiser suivant une loi normale
 - ### Exploration interactive:
   - Contrôles de la caméra (translation, zoom).
   - Visualisation de la simulation en temps réel.
